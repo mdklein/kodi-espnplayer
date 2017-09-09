@@ -200,6 +200,14 @@ def list_channels(service):
 
 
 def play_video(airingId, channel=None):
+    try:
+      espn.login(username, password)
+    except espn.LoginFailure:
+      addon_log('login failed')
+      dialog = xbmcgui.Dialog()
+      dialog.ok(language(30005),
+                language(30006))
+
     if channel:
         stream_url = espn.get_stream_url(airingId, channel)
     else:
